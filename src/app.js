@@ -77,6 +77,20 @@ app.patch("/students/:id",async(req,res)=>{
 })
 
 
+// Deleting Student Through Id
+app.delete("/students/:id", async (req, res) => {
+    try {
+        const deleteStudent = await Student.findByIdAndDelete(req.params.id);
+        if(!req.params.id){
+            return res.status(400).send();
+        }
+        res.send(deleteStudent);
+    } catch (err) {
+        res.status(500).send(err);
+    }
+});
+
+
 app.listen(port, () => {
     console.log(`Successful Connection On ${port}`)
 });
